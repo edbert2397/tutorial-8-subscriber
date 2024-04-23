@@ -13,3 +13,10 @@ the second guest, and what is localhost:5672 is for?
 ![](high_load.png)
 
 Banyaknya total antrian yang terjadi kurang lebih 10. `cargo run` dirun 2 kali yang seharusnya dijalankan dalam 10 detik (5 pesan per run x 2 kali run). Namun, karena  melakukan `cargo run` secara sequential, maka terdapat delay dan hanya tercapture antrian maksimal sebesar 10 dalam satu waktu.
+
+![](multi_subs.png)
+
+Tidak terjadi antrian pada gambar tersebut. Hal ini dikarenakan subscriber melakukan multithreading dalam menghandle event komunikasi yang dikirim publisher, sehingga proses dilakukan secara paralel.
+
+Beberapa improvement pada kode yang dapat dilakukan adalah.
+Melakukan paralelisme pada publisher untuk mengirim banyak request sekaligus agar dapat mensimulasi high traffic yang lebih.
